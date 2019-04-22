@@ -10,7 +10,7 @@
     "test": "eslint src/**.js",
     "build": "yarn clean; NODE_ENV=production webpack --colors",
     "clean": "rimraf dist",
-    "deploy": "yarn build; surge -p dist -d aditya-cs52-starter.surge.sh; yarn clean"
+    "deploy": "yarn build; surge -p dist -d aditya-cs52-lab3.surge.sh; yarn clean"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
@@ -42,10 +42,15 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "firebase": "^5.10.0",
+    "immutable": "^4.0.0-rc.12",
     "jquery": "^3.4.0",
     "lodash.debounce": "^4.0.8",
+    "marked": "^0.6.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router": "^5.0.0"
+    "react-draggable": "^3.3.0",
+    "react-router": "^5.0.0",
+    "react-textarea-autosize": "^7.1.0"
   }
 }

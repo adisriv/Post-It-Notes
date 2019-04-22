@@ -1,13 +1,58 @@
 body, html {
     font-family: "Roboto", sans-serif;
-    background: linear-gradient(to bottom, #87e0fd 0%,#53cbf1 40%,#05abe0 100%);
+    background: linear-gradient(to bottom, #8cadb8 0%,#513bb1 40%,#2c1669 100%);
     height: 100%;
   }
 
-  .logo {
-    background-image: url('img/france.png');
-    width: 100px;
-    height: 100px;
-    background-repeat: no-repeat;
-    background-size: contain;
+  #directions {
+    display: flex;
+    justify-content: center;
+  }
+  #add-note {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+
+  input {
+    font-size: 1.5em;
+    border-radius: .50em;
+    background-color: black;
+    color: white;
+  }
+  }
+
+  #each-note {
+    position: absolute;
+    width: 35vw;
+    height: 30vh;
+    background: yellow;
+    border-radius: 4px;
+    border: solid;
+    border-color: black;
+
+    .note-attributes {
+      display: flex;
+      justify-content: space-between;
+      
+      .note-buttons {
+        align-self: center;
+        display: flex;
+        justify-content: space-around;
+      }
+    
+    }
+
+    .note-content {
+      display: flex;
+      flex-direction: column;
+      height: 80%;
+      width: 100%;
+
+      .text-content {
+        background-color: transparent;
+        display: flex;
+        height: 100%;
+        margin: 1rem;
+      }
+    }
   }
