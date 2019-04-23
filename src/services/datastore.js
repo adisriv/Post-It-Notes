@@ -1,5 +1,6 @@
 import Firebase from 'firebase';
 
+// setting up firebase with my API auth
 const config = {
   apiKey: 'AIzaSyCfl8ayqF7KvR3UeOMVzgEopIsD98MgSFw',
   authDomain: 'react-notes-a3aba.firebaseapp.com',
@@ -11,8 +12,10 @@ const config = {
 
 Firebase.initializeApp(config);
 
+// destructuring
 const database = Firebase.database();
 
+// get the notes map
 function fetchNotes(callback) {
   database.ref('notes').on('value', (snapshot) => {
     const newNoteState = snapshot.val();
@@ -20,6 +23,7 @@ function fetchNotes(callback) {
   });
 }
 
+// make new note with specified title
 function makeNewNote(titleOfNote) {
   database.ref('notes').push().set({
     title: titleOfNote,
@@ -30,18 +34,22 @@ function makeNewNote(titleOfNote) {
   });
 }
 
+// remove note
 function noteDelete(id) {
   database.ref('notes').child(id).remove();
 }
 
+// update note body text
 function noteText(id, newText) {
   database.ref('notes').child(id).update({ text: newText });
 }
 
+// update note title
 function noteTitleText(id, newTitle) {
   database.ref('notes').child(id).update({ title: newTitle });
 }
 
+// update note position
 function notePosition(id, xPos, yPos) {
   database.ref('notes').child(id).update({ x: xPos, y: yPos });
 }

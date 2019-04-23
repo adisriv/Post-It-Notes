@@ -1,10 +1,11 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable new-cap */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Map } from 'immutable';
 import Note from './components/note';
 import NewNote from './components/new_note';
-// import * as db from './services/datastore';
+import * as db from './services/datastore';
 import './style.scss';
 
 
@@ -15,55 +16,38 @@ class App extends Component {
     this.state = {
       notes: Map(),
     };
-    this.createNote = this.createNote.bind(this);
   }
 
-  createNote(noteTitle, id) {
-    this.setState(prevState => ({
-      notes: prevState.notes.set(id, {
-        title: noteTitle,
-        text: '',
-        x: 0,
-        y: 0,
-        zIndex: 0,
-      }),
-    }));
+  // fetching the notes map everytime somethign is rendered again
+  componentDidMount() {
+    db.fetchNotes((notes) => {
+      this.setState({ notes: Map(notes) });
+    });
   }
 
+  // telling firebase to create a new note with the specific title
+  createNote(noteTitle) {
+    db.makeNewNote(noteTitle);
+  }
+
+  // telling firebase to delete the note
   deleteNote(id) {
-    this.setState(prevState => ({
-      notes: prevState.notes.delete(id),
-    }));
+    db.noteDelete(id);
   }
 
-  editText(id, text1) {
-    this.setState(prevState => ({
-      notes: prevState.notes.update(id, (n) => {
-        return (
-          Object.assign({}, n, { text: text1 })
-        );
-      }),
-    }));
+  // telling firebase to edit the text in the body of the note
+  editText(id, text) {
+    db.noteText(id, text);
   }
 
-  changeTitle(id, title1) {
-    this.setState(prevState => ({
-      notes: prevState.notes.update(id, (n) => {
-        return (
-          Object.assign({}, n, { title: title1 })
-        );
-      }),
-    }));
+  // telling firebase to change the title to what the user specified
+  changeTitle(id, title) {
+    db.noteTitleText(id, title);
   }
 
+  // telling firebase that the note was moved so update its location
   moveNote(id, xpos, ypos) {
-    this.setState(prevState => ({
-      notes: prevState.notes.update(id, (n) => {
-        return (
-          Object.assign({}, n, { x: xpos, y: ypos })
-        );
-      }),
-    }));
+    db.notePosition(id, xpos, ypos);
   }
 
   render() {

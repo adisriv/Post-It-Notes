@@ -19,6 +19,7 @@ class Note extends Component {
     this.moving = this.moving.bind(this);
   }
 
+  // when user clicks trash can, this sends back data to delete function to remove note
   onDeleteClick(event) {
     this.props.deleteNote(this.props.id);
   }
@@ -32,21 +33,23 @@ class Note extends Component {
     }
   }
 
+  // when user clicks edit option, this sends back what was edited for title
   onTextEdit(event) {
     this.props.editText(this.props.id, event.target.value);
   }
 
+  // when user clicks edit option, this sends back what was edited in body
   onChangeTitle(event) {
     event.preventDefault();
     this.props.changeTitle(this.props.id, event.target.value);
   }
 
+  // when user drags the note, this sends back thew new position of the note
   moving(event, ui) {
-    // this.props.note.x = ui.x;
-    // this.props.note.y = ui.y;
     this.props.moveNote(this.props.id, ui.x, ui.y);
   }
 
+  // this takes care of checking whether user wants to edit, and then allows them to either edit or applies the changes for the title
   editTitle() {
     if (this.state.isEditing) {
       return (
@@ -54,14 +57,13 @@ class Note extends Component {
       );
     } else {
       return (
-        console.log('enter title note'),
-          <h3>{this.props.note.title}</h3>
+        <h3>{this.props.note.title}</h3>
       );
     }
   }
 
+  // this takes care of checking whether user wants to edit, and then allows them to either edit or applies the changes for the body
   editBody() {
-    console.log(this.state.isEditing);
     if (this.state.isEditing) {
       return (
         <div className="note-content">
@@ -70,10 +72,9 @@ class Note extends Component {
       );
     } else {
       return (
-        console.log('enter title note'),
-          <div className="note-content">
-            <div className="text-content" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />;
-          </div>
+        <div className="note-content">
+          <div className="text-content" dangerouslySetInnerHTML={{ __html: marked(this.props.note.text || '') }} />;
+        </div>
       );
     }
   }
